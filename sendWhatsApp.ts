@@ -21,13 +21,13 @@ function generateOTP(): string {
 
 const AUTH_KEY = "d97a806b8dbbc4db"; // <--- your AuthKey API key
 const SENDER_ID = "28256";
-const COUNTRY_CODE = "91"; // India by default
+const COUNTRY_CODE = "91"; // India by default  
 
 // ----------------- Send OTP API -----------------
 app.post("/api/send-otp", async (req: Request, res: Response) => {
   try {
     const { mobile } = req.body;
-
+    console.log(mobile);
     if (!mobile) {
       return res.status(400).json({ error: "Mobile number is required" });
     }
@@ -35,10 +35,10 @@ app.post("/api/send-otp", async (req: Request, res: Response) => {
     const otp = generateOTP();
     const message = encodeURIComponent(`OTP for your complaint registration is ${otp}-GOVTAP`);
 
-    const url = `https://console.authkey.io/request?authkey=${AUTH_KEY}&mobile=${mobile}&country_code=${COUNTRY_CODE}&sms=${message}&sender=${SENDER_ID}`;
+    const url = `https://api.authkey.io/request?authkey=${AUTH_KEY}&mobile=${mobile}&country_code=${COUNTRY_CODE}&sid=${SENDER_ID}&name=Twinkle&otp=${otp}`;
 
     const response = await fetch(url);
-    const data = await response.json();
+    const data = await response.text();
 
     console.log("AuthKey response:", data);
 
