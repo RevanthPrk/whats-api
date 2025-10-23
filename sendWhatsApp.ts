@@ -58,11 +58,26 @@ app.post("/api/sendWhatsApp", async (req: Request, res: Response) => {
         "Authorization": `Bearer ${PAGE_ACCESS_TOKEN}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
+      // body: JSON.stringify({
+      //   messaging_product: "whatsapp",
+      //   to,
+      //   type: "text",
+      //   text: { body: message },
+      // }),
+        body: JSON.stringify({
         messaging_product: "whatsapp",
         to,
-        type: "text",
-        text: { body: message },
+        type: "template", // or "text" if approved
+        template: {
+          name: "hello_world", // your template name
+          language: { code: "en_US" },
+          components: [
+            {
+              type: "body",
+              parameters: [{ type: "text", text: message }]
+            }
+          ]
+        }
       }),
     });
 
