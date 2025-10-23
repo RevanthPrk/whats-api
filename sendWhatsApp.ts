@@ -3,13 +3,15 @@ import fetch from "node-fetch";
 import cors from "cors";
 
 const app = express();
-app.use(cors());
-
 app.use(
   cors({
-    origin: ["https://mee-bhoomi.com", "http://localhost:5173"], // replace with your Vue app URL
+    origin: ["http://localhost:5173", "https://mee-bhoomi.com"],
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
+app.options("*", cors());
 app.use(express.json());
 
 // ----------------- Generate 6-Digit OTP -----------------
