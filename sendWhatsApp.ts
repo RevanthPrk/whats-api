@@ -67,18 +67,14 @@ app.post("/api/sendWhatsApp", async (req: Request, res: Response) => {
         body: JSON.stringify({
         messaging_product: "whatsapp",
         to,
-        type: "template", // or "text" if approved
+        type: "template",
         template: {
-          name: "hello_world", // your template name
-          language: { code: "en_US" },
-          components: [
-            {
-              type: "body",
-              parameters: [{ type: "text", text: message }]
-            }
-          ]
+          name: "hello_world",
+          language: { code: "en_US" }
+          // NO components section here
         }
-      }),
+      })
+
     });
 
     const data = await response.json();
