@@ -4,6 +4,12 @@ import cors from "cors";
 
 const app = express();
 app.use(cors());
+
+app.use(
+  cors({
+    origin: ["https://mee-bhoomi.com", "http://localhost:5173"], // replace with your Vue app URL
+  })
+);
 app.use(express.json());
 
 // ----------------- Generate 6-Digit OTP -----------------
